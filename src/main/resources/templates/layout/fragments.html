@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/estilos.css}" />
+<title th:text="${titulo}">[--]</title>
+</head>
+<body>
+	<header th:fragment="header">
+		<nav
+			class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Spring Boot</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" th:href="@{/cliente}">Nuevo
+							Cliente</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/clientes}">Clientes</a></li>
+				</ul>
+			</div>
+		</nav>	
+	</header>
+	
+	<footer th:fragment="footer" class="container"> 
+		<hr/>
+		<img style="width: 15%;" alt="Spring Boot" th:src="@{/img/spring.png}"/>
+		<p style="text-decoration: none;">
+			Powered by <a href="https://projects.spring.io/spring-boot/">Spring Boot</a>
+			and <a href="http://www.thymeleaf.org">Thymeleaf</a>
+		</p>
+		<p>
+			Un proyecto desarrollado por Carlos Albeto Mantilla con tecnologías web que facilitan
+			la <br/>implementación del patrón arquitectónico MVC. Taler como Spring MVC, JPA.
+			<br/>Como IDE se utilizó STS - Eclipse Oxygen.
+		</p>
+	</footer>
+</body>
+</html>

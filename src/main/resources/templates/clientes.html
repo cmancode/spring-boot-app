@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/fragments :: head">
+</head>
+<body>
+<header th:replace="layout/fragments :: header"></header>
+	<div class="container" id="main-container">
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Primer Apellido</th>
+					<th>Segundo Apellido</th>
+					<th>Correo</th>
+					<th>Fecha Nacimiento</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cliente : ${clientes}">
+					<td th:text="${cliente.id}"></td>
+					<td th:text="${cliente.nombres}"></td>
+					<td th:text="${cliente.p_apellido}"></td>
+					<td th:text="${cliente.s_apellido}"></td>
+					<td th:text="${cliente.correo}"></td>
+					<td th:text="${cliente.fecha_nacimiento}"></td>
+					<td><a class="btn btn-primary" th:href="@{clientes/}+${cliente.id}">Editar</a></td>
+					<td><a class="btn btn-danger" th:href="@{clientes/}+${cliente.id}">Editar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<footer th:replace="layout/fragments :: footer"></footer>
+</body>
+</html>
