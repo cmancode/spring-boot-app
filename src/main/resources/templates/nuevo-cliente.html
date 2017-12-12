@@ -24,7 +24,7 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="p_apellido">Primer Apellido</label>
-						<div class="col-sm-7">
+						<div class="col-sm-5">
 							<input type="text" th:field="*{p_apellido}" class="form-control"
 								id="p-apellido" placeholder="Primer Apellido" /> <small
 								class="form-text text-danger"
@@ -33,7 +33,7 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="s_apellido">Segundo Apellido</label>
-						<div class="col-sm-7">
+						<div class="col-sm-5">
 							<input type="text" th:field="*{s_apellido}" class="form-control"
 								id="s-apellido" placeholder="Segundo Apellido" /> <small
 								class="form-text text-danger"
@@ -42,7 +42,7 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="correo">E-Mail</label>
-						<div class="col-sm-7">
+						<div class="col-sm-5">
 							<input type="text" th:field="*{correo}" class="form-control"
 								id="email" placeholder="Correo" /> <small
 								class="form-text text-danger"
@@ -51,14 +51,14 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="fecha">Fecha</label>
-						<div class="col-sm-5">
+						<div class="col-sm-3">
 							<input type="text" th:field="*{fecha_nacimiento}" class="form-control"
 								id="fecha-nacicmiento" placeholder="Fecha Nacimiento" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}"></small>
 						</div>
 					</div>
-					<div class="py-4">
+					<div>
 						<button type="submit" class="btn btn-dark" th:text="${boton}">[--]</button>
 					</div>
 				</form>

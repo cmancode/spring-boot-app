@@ -23,6 +23,11 @@ label {
 	padding: 3px 12px 3px 12px; 
 }
 
+.content-pagination {
+	display: flex;
+	justify-content: center;	
+}
+
 footer {
 	margin-bottom: 0;
 }

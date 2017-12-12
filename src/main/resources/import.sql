@@ -1,2 +1,15 @@
-INSERT INTO CLIENTES (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (1, 'Carlos Alberto', 'Mantilla', 'Berdugo', 'cmantillab@sena.edu.co', '2017-12-10');
-INSERT INTO CLIENTES (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (2, 'Carlos José', 'Martinez', 'Santiago', 'cmantinezs@gmail.com', '2017-12-01');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (1, 'Carlos Alberto', 'Mantilla', 'Berdugo', 'cmantillab@sena.edu.co', '2017-12-10');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (2, 'Carlos José', 'Martinez', 'Santiago', 'cmantinezs@gmail.com', '2017-12-01');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (3, 'Camilo José', 'Martinez', 'Brocero', 'cbrochero@gmail.com', '1997-09-01');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (4, 'José José', 'Santiago', 'Santiago', 'jsantiago@gmail.com', '1991-10-12');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (5, 'Elkin José', 'De avila', 'Mantilla', 'eklin493@gmail.com', '1984-09-16');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (6, 'Santiago Andrés', 'Martinez', 'Cotes', 'das@gmail.com', '1998-12-12');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (7, 'Pedro Luis', 'Cotes', 'Brito', 'pcotes@gmail.com', '1992-07-12');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (8, 'Will Camilo', 'Andrades', 'Pertúz', 'wandrades@gmail.com', '1999-01-12');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (9, 'Patricia Margarita', 'Terán', 'Saenz', 'pteran@gmail.com', '1978-08-07');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (10, 'Efrain Camilo', 'Manrique', 'Perez', 'emanrique@gmail.com', '1965-12-01');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (11, 'Esteban Camilo', 'Molsalve', 'Americo', 'emolsalve@gmail.com', '1965-12-01');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (12, 'Kelly Jhoana', 'Martinez', 'Mantilla', 'kk@gmail.com', '1996-10-12');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (13, 'Eduardo Davin', 'Morrinson', 'Mantilla', 'emm@gmail.com', '1980-07-09');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (14, 'Elizabeth María', 'Morrinson', 'Mantilla', 'emm@gmail.com', '1980-07-09');
+INSERT INTO clientes (id, nombres, p_apellido, s_apellido, correo, fecha_nacimiento) VALUES (15, 'Eliana', 'Morrinson', 'Mantilla', 'emm@gmail.com', '1980-07-09');

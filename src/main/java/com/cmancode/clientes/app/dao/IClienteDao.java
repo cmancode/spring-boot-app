@@ -1,11 +1,9 @@
 package com.cmancode.clientes.app.dao;
 
-import java.util.List;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.cmancode.clientes.app.model.Cliente;
 
-public interface IClienteDao {
-	
-	public List<Cliente> findAll();
+public interface IClienteDao extends PagingAndSortingRepository<Cliente, Long>{
 
 }

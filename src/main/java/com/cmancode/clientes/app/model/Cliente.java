@@ -11,37 +11,39 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 
 @Entity
-@Table(name = "CLIENTES")
+@Table(name = "clientes")
 public class Cliente implements Serializable{
 
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotNull
+	@NotEmpty
 	@Column(nullable = false, length = 30)
 	private String nombres;
-	@NotNull
+	@NotEmpty
 	@Column(nullable = false, length = 30)
 	private String p_apellido;
-	@NotNull
+	@NotEmpty
 	@Column(nullable = false, length = 30)
 	private String s_apellido;
-	@NotNull
-	@Email
+	@NotEmpty
 	@Column(length = 50)
 	private String correo;
 	@NotNull
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date fecha_nacimiento;
 	
 	
