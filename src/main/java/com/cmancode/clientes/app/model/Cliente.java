@@ -45,6 +45,8 @@ public class Cliente implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date fecha_nacimiento;
+	@Column
+	private String foto;
 	
 	
 	public String getCorreo() {
@@ -82,6 +84,12 @@ public class Cliente implements Serializable{
 	}
 	public void setFecha_nacimiento(Date fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
+	}
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 	
 }

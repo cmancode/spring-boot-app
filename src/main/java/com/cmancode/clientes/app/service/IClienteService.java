@@ -13,7 +13,7 @@ public interface IClienteService {
 	public List<Cliente> findAll();
 	public Page<Cliente> findAll(Pageable pageable);
 	public void saveClient(Cliente cliente);
-	public Optional<Cliente> findById(Long id);
+	public Cliente findById(Long id);
 	public void deleteClient(Long id);
 	
 }

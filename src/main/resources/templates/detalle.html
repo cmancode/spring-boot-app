@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/fragments :: head">
+</head>
+<body>
+	<header th:replace="layout/fragments :: header"></header>
+
+	<div class="container py-4">
+		<div class="card bg-ligth">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<img class="img-thumbnail rounded float-left"
+					style="max-width: 25%;" th:src="@{'/uploads/' + ${client.foto}}"
+					th:alt="${client.foto}">
+				<ul class="list-group">
+					<li class="list-group-item" th:text="${client.nombres}"></li>
+					<li class="list-group-item" th:text="${client.p_apellido}"></li>
+					<li class="list-group-item" th:text="${client.s_apellido}"></li>
+					<li class="list-group-item" th:text="${client.correo}"></li>
+					<li class="list-group-item" th:text="${client.fecha_nacimiento}"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/fragments :: footer"></footer>
+</body>
+</html>

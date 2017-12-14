@@ -20,7 +20,7 @@ public class ClienteServiceImpl implements IClienteService{
 	private IClienteDao clienteDao;
 	
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Cliente> findAll() {
 		return (List<Cliente>) clienteDao.findAll();
 	}
@@ -31,9 +31,10 @@ public class ClienteServiceImpl implements IClienteService{
 		clienteDao.save(cliente);
 	}
 
-	@Transactional
-	public Optional<Cliente> findById(Long id) {
-		return clienteDao.findById(id);
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente findById(Long id) {
+		return clienteDao.findById(id).orElse(null);
 	}
 
 	@Override

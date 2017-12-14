@@ -6,10 +6,16 @@
 	<header th:replace="layout/fragments :: header"></header>
 
 	<div class="container" id="main-container">
+	
 		<div class="alert alert-success" th:if="${success != null}"
 			th:text="${success}"></div>
+			
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+			
 		<div class="alert alert-warning" th:if="${warning != null}"
 			th:text="${warning}"></div>
+			
 		<div class="card bg-light">
 			<div class="card-header">Lista de Clientes</div>
 			<div class="card-body">
@@ -30,7 +36,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="cliente : ${clientes}">
-							<td th:text="${cliente.id}"></td>
+							<td><a class="btn btn-primary" th:href="@{/detalle/} + ${cliente.id}" th:text="${cliente.id}"></a></td>
 							<td th:text="${cliente.nombres}"></td>
 							<td th:text="${cliente.p_apellido}"></td>
 							<td th:text="${cliente.s_apellido}"></td>
