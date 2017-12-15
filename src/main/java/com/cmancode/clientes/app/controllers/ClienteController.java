@@ -5,9 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -87,20 +89,18 @@ public class ClienteController {
 		}
 		
 		if(!file.isEmpty()) {
-			//Se establece donde se almacenarán los recursos
-			//Path directorioRecuros = Paths.get("src//main//resources//static/uploads");
-			//String rootPath = directorioRecuros.toFile().getAbsolutePath();
-			String rootPath = "//home//carlos//Documentos//proyectos-sp//img-app//uploads";
+
+			String nombreAleatorio = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+			Path rootPath = Paths.get("uploads").resolve(nombreAleatorio);
+			
 			try {
-				byte[] bytes = file.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + file.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
-				flash.addFlashAttribute("info", "Imagen '"+ file.getOriginalFilename() + "' almacenada con éxito!");
+				Files.copy(file.getInputStream(), rootPath); //Se copia la imagen a la ruta absoluta
+				flash.addFlashAttribute("info", "Imagen '"+ nombreAleatorio + "' almacenada con éxito!");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			cliente.setFoto(file.getOriginalFilename());
+			cliente.setFoto(nombreAleatorio);
 		}
 		
 		flash.addFlashAttribute("success", "Información registrada con éxito!");
