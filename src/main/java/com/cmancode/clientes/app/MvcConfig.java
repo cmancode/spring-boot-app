@@ -20,7 +20,7 @@ public class MvcConfig implements WebMvcConfigurer{
 		log.info(absolutePath);
 		registry.addResourceHandler("/uploads/**")
 		.addResourceLocations(absolutePath);
-	}
+	} 	
 
 
 }

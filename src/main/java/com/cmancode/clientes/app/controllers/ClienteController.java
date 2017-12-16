@@ -1,43 +1,40 @@
 package com.cmancode.clientes.app.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cmancode.clientes.app.model.Cliente;
 import com.cmancode.clientes.app.paginator.PageRender;
 import com.cmancode.clientes.app.service.IClienteService;
+import com.cmancode.clientes.app.service.IUploadFileService;
 
 @Controller
 public class ClienteController {
 
 	@Autowired
 	private IClienteService clienteService;
-	
+	@Autowired
+	private IUploadFileService uploadServie;
 	
 	@RequestMapping(value = "/detalle/{id}", method = RequestMethod.GET)
 	public String detalleCliente(@PathVariable("id") Long id, Model model, RedirectAttributes flash) {
@@ -91,15 +88,12 @@ public class ClienteController {
 		if(!file.isEmpty()) {
 
 			String nombreAleatorio = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-			Path rootPath = Paths.get("uploads").resolve(nombreAleatorio);
-			
 			try {
-				Files.copy(file.getInputStream(), rootPath); //Se copia la imagen a la ruta absoluta
-				flash.addFlashAttribute("info", "Imagen '"+ nombreAleatorio + "' almacenada con éxito!");
+				uploadServie.load(nombreAleatorio, file); //Se copia la imagen a la ruta absoluta
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			flash.addFlashAttribute("info", "Imagen '"+ nombreAleatorio + "' almacenada con éxito!");
 			cliente.setFoto(nombreAleatorio);
 		}
 		
@@ -125,8 +119,11 @@ public class ClienteController {
 	@RequestMapping(value = "/eliminar/{id}", method = RequestMethod.GET)
 	public String deleteClient (@PathVariable("id") Long id, RedirectAttributes flash) {
 		
+		Cliente cliente = clienteService.findById(id);
 		if(id > 0) {
 			clienteService.deleteClient(id);
+			uploadServie.deteleFile(cliente.getFoto()); //Eliminación de la imagen
+			flash.addFlashAttribute("info", "Imagen "+ cliente.getFoto() +" eliminada con éxito!");
 		}
 		flash.addFlashAttribute("warning", "Datos eliminados con exitosamente!");
 		return "redirect:/clientes";
