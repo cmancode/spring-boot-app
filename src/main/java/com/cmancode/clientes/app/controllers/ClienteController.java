@@ -1,10 +1,6 @@
 package com.cmancode.clientes.app.controllers;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -79,6 +75,8 @@ public class ClienteController {
 	@RequestMapping(value = "/cliente", method = RequestMethod.POST)
 	public String saveClient(@Valid Cliente cliente, BindingResult result, @RequestParam("file") MultipartFile file, RedirectAttributes flash, Model model) {
 		
+		String nameFoto = null;
+		
 		if(result.hasErrors()) {
 			model.addAttribute("encabezado", "Nuevo Cliente");
 			model.addAttribute("boton", "Registrar cliente");
@@ -86,17 +84,18 @@ public class ClienteController {
 		}
 		
 		if(!file.isEmpty()) {
-
-			String nombreAleatorio = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+			if(cliente.getFoto() != null && cliente.getId() != null) { //Eliminamos foto al momento de actualizar foto
+				uploadServie.deteleFile(cliente.getFoto());
+			}
+			nameFoto = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 			try {
-				uploadServie.load(nombreAleatorio, file); //Se copia la imagen a la ruta absoluta
+				uploadServie.load(nameFoto, file); //Se copia la imagen a la ruta absoluta
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			flash.addFlashAttribute("info", "Imagen '"+ nombreAleatorio + "' almacenada con éxito!");
-			cliente.setFoto(nombreAleatorio);
+			flash.addFlashAttribute("info", "Imagen '"+ nameFoto + "' almacenada con éxito!");
+			cliente.setFoto(nameFoto);
 		}
-		
 		flash.addFlashAttribute("success", "Información registrada con éxito!");
 		clienteService.saveClient(cliente);
 		return "redirect:/clientes";
