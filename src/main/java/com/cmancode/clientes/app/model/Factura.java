@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "facturas")
 public class Factura implements Serializable {
@@ -45,6 +47,7 @@ public class Factura implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "factura_id", nullable = false)
+	@JsonIgnore
 	private List<DetalleFactura> detalles;
 	
 	public Factura() {
@@ -111,7 +114,7 @@ public class Factura implements Serializable {
 	public Double getTotal() {
 		Double total = 0.0;
 		int size = this.detalles.size();
-		for(int i=0; i<size; i++) {
+		for(int i=0; i < size; i++) {
 			total += this.detalles.get(i).calcularImporte();
 		}
 		return total;

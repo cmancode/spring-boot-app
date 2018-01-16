@@ -1,16 +1,26 @@
 package com.cmancode.clientes.app.controllers;
 
+import java.util.List;
+
+import org.hibernate.stat.SessionStatistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cmancode.clientes.app.model.Cliente;
+import com.cmancode.clientes.app.model.DetalleFactura;
 import com.cmancode.clientes.app.model.Factura;
+import com.cmancode.clientes.app.model.Producto;
 import com.cmancode.clientes.app.service.IClienteService;
 
 @Controller
@@ -36,6 +46,37 @@ public class FacturaController {
 		model.addAttribute("titulo", "Crear Factura");
 		
 		return "factura/factura";
+	}
+	
+	@GetMapping(value = {"/cargar-productos/{nameProducto}"}, produces = "application/json")
+	public @ResponseBody List<Producto> productos(@PathVariable("nameProducto") String nameProducto){
+		return clienteService.productos(nameProducto);
+	}
+	
+	@PostMapping(value = "/factura")
+	public String guardarFactura (Factura factura, 
+			@RequestParam(name="item_id[]", required = false) Long[] itemId,
+			@RequestParam(name="cantidad[]") Integer[] cantidad,
+			RedirectAttributes flash,
+			SessionStatus status) {
+		
+		for(int i=0; i<itemId.length; i++) {
+			
+			Producto producto = clienteService.findProductoById(itemId[i]);
+			
+			DetalleFactura linea = new DetalleFactura();
+			
+			linea.setCantidad(cantidad[i]);
+			linea.setProducto(producto);
+			
+			factura.addItemFactura(linea);
+		}
+		
+		clienteService.saveFactura(factura);
+		status.setComplete();
+		flash.addFlashAttribute("success", "Factura creada exitosamente!");
+		
+		return "redirect:/detalle/"+factura.getCliente().getId();
 	}
 	
 }

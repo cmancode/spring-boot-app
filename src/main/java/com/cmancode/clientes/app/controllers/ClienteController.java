@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,7 +66,7 @@ public class ClienteController {
 		model.addAttribute("page", pageRender);
 		return "clientes";
 	}
-	@RequestMapping(value = "/clientess")
+	@GetMapping(value = "/clientess")
 	public ResponseEntity<List<Cliente>> clientes(){
 		
 		List<Cliente> clientes = null;

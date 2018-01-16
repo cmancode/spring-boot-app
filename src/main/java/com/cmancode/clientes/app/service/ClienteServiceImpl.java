@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cmancode.clientes.app.dao.IClienteDao;
+import com.cmancode.clientes.app.dao.IFacturaDao;
+import com.cmancode.clientes.app.dao.IProductoDao;
 import com.cmancode.clientes.app.model.Cliente;
+import com.cmancode.clientes.app.model.Factura;
+import com.cmancode.clientes.app.model.Producto;
 
 @Service("clienteService")
 @Transactional
@@ -17,6 +21,10 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	@Autowired
 	private IClienteDao clienteDao;
+	@Autowired
+	private IProductoDao productoDao;
+	@Autowired
+	private IFacturaDao facturaDao;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -50,4 +58,24 @@ public class ClienteServiceImpl implements IClienteService{
 		return clientePageable;
 	}
 
+	@Override
+	@Transactional
+	public List<Producto> productos(String nameProducto) {
+		return productoDao.productos(nameProducto);
+	}
+
+	@Override
+	@Transactional
+	public void saveFactura(Factura factura) {
+		facturaDao.save(factura);		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Producto findProductoById(Long id) {
+		// TODO Auto-generated method stub
+		return productoDao.findById(id).orElse(null);
+	}
+
+	
 }
