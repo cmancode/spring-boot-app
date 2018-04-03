@@ -2,10 +2,12 @@ package com.cmancode.clientes.app.controllers;
 
 import java.util.List;
 
-import org.hibernate.stat.SessionStatistics;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,19 @@ public class FacturaController {
 	@Autowired
 	private IClienteService clienteService;
 	
+	@GetMapping(value = "/ver/{id}")
+	private String verFactura(@PathVariable("id") Long id, Model model, RedirectAttributes flash) {
+		Factura factura = clienteService.findFacturaById(id);
+		if(factura == null) {
+			flash.addFlashAttribute("error", "Factura no encontrada en la base de datos");
+			return "redirect:/clientes";			
+		}
+		
+		model.addAttribute("factura", factura);
+		model.addAttribute("titulo", "Factura:".concat(factura.getDescripcion()));
+		
+		return "factura/ver";
+	}
 	
 	@RequestMapping(value = "/factura/{clienteId}", method = RequestMethod.GET)
 	public String crearFactura(@PathVariable("clienteId") Long id, Model model, RedirectAttributes flash) {
@@ -54,11 +69,17 @@ public class FacturaController {
 	}
 	
 	@PostMapping(value = "/factura")
-	public String guardarFactura (Factura factura, 
+	public String guardarFactura (@Valid Factura factura, BindingResult resul,
+			Model model,
 			@RequestParam(name="item_id[]", required = false) Long[] itemId,
 			@RequestParam(name="cantidad[]") Integer[] cantidad,
 			RedirectAttributes flash,
 			SessionStatus status) {
+		
+		if(resul.hasErrors()) {
+			model.addAttribute("titulo", "Crear Factura");
+			return "factura/factura";
+		}
 		
 		for(int i=0; i<itemId.length; i++) {
 			
