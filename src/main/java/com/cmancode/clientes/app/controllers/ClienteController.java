@@ -53,7 +53,7 @@ public class ClienteController {
 	}
 	
 	
-	@RequestMapping(value = "/clientes", method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/clientes"}, method = RequestMethod.GET)
 	public String listarClientes(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 		Page<Cliente> clientesPageable = null;
 		Pageable pageRequest = null;
