@@ -10,10 +10,15 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.cmancode.clientes.app.outh.handler.LoginSucessHandler;
+
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 		
+	@Autowired
+	private LoginSucessHandler seccessHandler;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
@@ -27,7 +32,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/detalle/**").hasAnyRole("USER")
 		.anyRequest().authenticated()
 		.and()
-		.formLogin().loginPage("/login").permitAll()
+		.formLogin()
+			.successHandler(seccessHandler)
+			.loginPage("/login").permitAll()
 		.and()
 		.logout().permitAll()
 		.and().exceptionHandling().accessDeniedPage("/error_403");
