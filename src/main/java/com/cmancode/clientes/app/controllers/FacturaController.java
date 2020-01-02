@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import com.cmancode.clientes.app.model.Factura;
 import com.cmancode.clientes.app.model.Producto;
 import com.cmancode.clientes.app.service.IClienteService;
 
+@Secured("ROLE_ADMIN")
 @Controller
 @SessionAttributes("factura")
 public class FacturaController {

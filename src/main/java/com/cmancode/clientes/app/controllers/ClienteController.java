@@ -1,6 +1,7 @@
 package com.cmancode.clientes.app.controllers;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +42,8 @@ public class ClienteController {
 	@Autowired
 	private IUploadFileService uploadServie;
 	
+	
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "/detalle/{id}", method = RequestMethod.GET)
 	public String detalleCliente(@PathVariable("id") Long id, Model model, RedirectAttributes flash) {
 		
@@ -76,6 +84,7 @@ public class ClienteController {
 		return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/cliente", method = RequestMethod.GET)
 	public String nuevoCliente(Model model) {
 		Cliente cliente = new Cliente();
@@ -85,6 +94,8 @@ public class ClienteController {
 		model.addAttribute("boton", "Registrar Cliente");
 		return "nuevo-cliente";
 	}
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/cliente", method = RequestMethod.POST)
 	public String saveClient(@Valid Cliente cliente, BindingResult result, @RequestParam("file") MultipartFile file, RedirectAttributes flash, Model model) {
 		
@@ -114,6 +125,7 @@ public class ClienteController {
 		return "redirect:/clientes";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET)
 	public String findByIdClient(@PathVariable("id") Long id, Cliente cliente, Model model) {
 		
@@ -128,6 +140,7 @@ public class ClienteController {
 		return "nuevo-cliente";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/eliminar/{id}", method = RequestMethod.GET)
 	public String deleteClient (@PathVariable("id") Long id, RedirectAttributes flash) {
 		
@@ -141,4 +154,30 @@ public class ClienteController {
 		return "redirect:/clientes";
 	}
 	
+	
+	public boolean hasRole(String role) {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		
+		if(context == null) {
+			return false;
+		}
+		
+		Authentication auth = context.getAuthentication();
+		
+		if(auth == null) {
+			return false;
+		}
+		
+		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+		
+		for(GrantedAuthority auth1: authorities) {
+			if(role.equals(auth1.getAuthority())) {
+				return true;
+			}
+		}
+		
+		return false;		
+		
+	}
 }
