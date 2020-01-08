@@ -79,7 +79,7 @@ public class ClienteServiceImpl implements IClienteService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public Factura findFacturaById(Long id) {
+	public Factura findFactById(Long id) {
 		return facturaDao.findById(id).orElse(null);
 	}
 

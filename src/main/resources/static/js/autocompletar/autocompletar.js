@@ -8,7 +8,7 @@ autocomplete = function(){
 		source: function(request, response) {
 			let solicitud = $.ajax({
 								//type:'GET'
-								url: '/cargar-productos/' + request.term,
+								url: '/factura/cargar-productos/' + request.term,
 								dataType: 'json',
 								data: {
 									term: request.term

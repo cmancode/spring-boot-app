@@ -26,7 +26,8 @@ import com.cmancode.clientes.app.model.Factura;
 import com.cmancode.clientes.app.model.Producto;
 import com.cmancode.clientes.app.service.IClienteService;
 
-@Secured("ROLE_ADMIN")
+//@Secured("ROLE_ADMIN")
+@RequestMapping("/factura")
 @Controller
 @SessionAttributes("factura")
 public class FacturaController {
@@ -36,12 +37,14 @@ public class FacturaController {
 	
 	@GetMapping(value = "/ver/{id}")
 	private String verFactura(@PathVariable("id") Long id, Model model, RedirectAttributes flash) {
-		Factura factura = clienteService.findFacturaById(id);
-		if(factura == null) {
-			flash.addFlashAttribute("error", "Factura no encontrada en la base de datos");
-			return "redirect:/clientes";			
-		}
+		System.out.println("Entréeéééééééééeé");
+		Factura factura = clienteService.findFactById(id);
+		System.out.println("Fecha: "+factura.getFecha());
 		
+//		if(factura == null) {
+//			flash.addFlashAttribute("error", "Factura no encontrada en la base de datos");
+//			return "redirect:/clientes";			
+//		}
 		model.addAttribute("factura", factura);
 		model.addAttribute("titulo", "Factura:".concat(factura.getDescripcion()));
 		

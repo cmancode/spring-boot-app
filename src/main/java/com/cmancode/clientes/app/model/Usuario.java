@@ -23,7 +23,7 @@ public class Usuario implements Serializable {
 	private Long id;
 	
 	@Column(name="username", length = 30, unique = true, nullable = false)
-	private String userName;
+	private String username;
 	
 	@Column(length = 70, nullable = false)
 	private String password;
@@ -45,11 +45,11 @@ public class Usuario implements Serializable {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -66,6 +66,14 @@ public class Usuario implements Serializable {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 	
 }

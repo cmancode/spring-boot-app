@@ -47,7 +47,7 @@
 							<td th:text="${cliente.correo}"></td>
 							<td th:text="${cliente.fecha_nacimiento}"></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-success"
-								th:href="@{factura/}+${cliente.id}">Crear</a></td>
+								th:href="@{factura/factura/}+${cliente.id}">Crear</a></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary"
 								th:href="@{cliente/}+${cliente.id}">Editar</a></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger"
